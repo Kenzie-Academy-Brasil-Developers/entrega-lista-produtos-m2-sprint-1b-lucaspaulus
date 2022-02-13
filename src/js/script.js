@@ -7,7 +7,9 @@ const botaoMostrarHortifruti = document.querySelector('.estiloGeralBotoes--filtr
 const botaoBuscaPorNome = document.querySelector('.estiloGeralBotoes--botaoBuscaPorNome')
 const botaoMostrarTodosProdutos = document.querySelector('.estiloGeralBotoes--mostrarTodos')
 const totalProdutos = document.querySelector('#precoTotal')
- 
+
+//Seleciona o input do campo de busca
+const campoDeBusca = document.getElementsByClassName("campoBuscaPorNome")[0]
 
 //Cria uma lista com os produtos
 function montarListaProdutos(listaProdutos) {
@@ -46,11 +48,9 @@ function filtrarPorHortifruti() {
     })
 
     montarListaProdutos(listaHortifruti)
-    console.log(listaHortifruti)
 
     //Soma os produtos filtrados pela seção Hortifruti
     totalProdutos.innerText = " " + somaTotalProdutos(listaHortifruti) + ".00"
-    console.log(somaTotalProdutos(listaHortifruti))
 }
 
 // Adicionando event listener de clique, e executando a função de filtro pela seção
@@ -70,15 +70,18 @@ function buscaPorNome(){
     })
     
     montarListaProdutos(produtoPeloNome)
-    console.log(pesquisarProdutos) 
 
     //soma os produtos filtrados pelo nome
     totalProdutos.innerText = " " + somaTotalProdutos(produtoPeloNome) + ".00" 
-    console.log(somaTotalProdutos(produtoPeloNome))
 }
 
 // Adicionando event listener de clique, e executando a função de filtro pelo nome
 botaoBuscaPorNome.addEventListener('click', buscaPorNome)
+campoDeBusca.addEventListener('keypress', function(e){
+    if(e.key === "Enter"){
+        buscaPorNome()
+    }
+})
 
 //--------------------MOSTRA TODOS OS PRODUTOS--------------------------
 
@@ -90,18 +93,16 @@ function mostrarTodosProdutos(){
     })
     
     montarListaProdutos(mostrarProdutos)
-    console.log(mostrarProdutos) 
     
     // Soma todos os produtos disponiveis 
     totalProdutos.innerText = " " + somaTotalProdutos(mostrarProdutos) + ".00"
-    console.log(somaTotalProdutos(mostrarProdutos))
 }
  
 botaoMostrarTodosProdutos.addEventListener('click', mostrarTodosProdutos)
 
 //---------------------------------------------------------------
 
-// Realiza a soma de quaisquer produtos
+// Faz a soma de quaisquer produtos
 function somaTotalProdutos(valorProduto) {
     let somaTotal = 0;
     for(let i = 0 ; i < valorProduto.length ; i++) {
